@@ -17,5 +17,4 @@ router.post('/', [
         res.status(404).json({errors: errors.array()})
     }
 })
-
 module.exports = router;
