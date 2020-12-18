@@ -1,0 +1,61 @@
+const user = require("../models/model_users")
+const utilities = require('../utilities/utilities')
+const bcrypt = require('bcrypt');
+
+const register = (req, res) => {
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+            
+            const userToCreate = new user({email: req.body.email, name: req.body.name, password: req.body.password, height:req.body.height, birth:req.body.birth, weight:req.body.weight, photoUrl:req.body.photoUrl});
+
+            user.find({email: req.body.email}, function (err, user) {
+                if (err) {
+                    res.status(400).send(err); 
+                }
+        
+                if(user.length > 0) {
+                    res.status(406).send("Duplicated User"); 
+                } else {
+                  
+                    userToCreate.save(function (err, newUser) {
+                        if (err) {
+                            res.status(400).send(err); 
+                        }
+                        res.status(200).json("Registered User"); 
+                    })
+                }
+            })
+        });
+    });
+} 
+
+const login = (req, res) => {
+
+    user.find({email: req.body.email}, function (err, user) {
+        if (err) {
+            res.status(400).send(err); 
+        }
+
+        if(user.length > 0) {
+
+            bcrypt.compare(req.body.password, user[0].password).then(function(result) {
+                console.log(req.body.password, user[0].password);
+                if(result) {
+                    utilities.generateToken({email: req.body.email}, (token) => {
+                        res.status(200).json(token); 
+                    })
+                } else {
+                    res.status(401).send("Not Authorized"); 
+                }
+            });
+
+           
+        } else {
+            res.status(401).send("Not Authorized"); 
+        }
+       
+    })
+} 
+
+exports.login = login; 
+exports.register = register; 
