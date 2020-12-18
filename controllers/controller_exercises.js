@@ -21,6 +21,16 @@ const list = (res) => {
         res.status(200).json(exercises); 
     })
 }
+const getExerciseByCategory = (req, res) => {
+    exercise.find({category: req.params.category}, function (err, exercises) {
+        if (err) {
+            res.status(400).send(err); 
+        }
+        res.status(200).json(exercises); 
+    })
+}
+
 
 exports.create=create;
 exports.list = list;
+exports.getExerciseByCategory = getExerciseByCategory
