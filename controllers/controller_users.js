@@ -6,7 +6,7 @@ const register = (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(req.body.password, salt, function(err, hash) {
             
-            const userToCreate = new user({email: req.body.email, name: req.body.name, password: req.body.password, height:req.body.height, birth:req.body.birth, weight:req.body.weight, photoUrl:req.body.photoUrl});
+            const userToCreate = new user({email: req.body.email, name: req.body.name, password: hash, height:req.body.height, birth:req.body.birth, weight:req.body.weight, photoUrl:req.body.photoUrl});
 
             user.find({email: req.body.email}, function (err, user) {
                 if (err) {
@@ -39,10 +39,12 @@ const login = (req, res) => {
         if(user.length > 0) {
 
             bcrypt.compare(req.body.password, user[0].password).then(function(result) {
-                console.log(req.body.password, user[0].password);
                 if(result) {
-                    utilities.generateToken({email: req.body.email}, (token) => {
-                        res.status(200).json(token); 
+                    utilities.generateToken({email:req.body.email,id:user[0]._id, name:user[0].name}, (token) => {
+                        res.status(200).send({
+                            message: "Auth",
+                            token:token
+                        })
                     })
                 } else {
                     res.status(401).send("Not Authorized"); 

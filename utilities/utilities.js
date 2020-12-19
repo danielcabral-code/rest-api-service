@@ -1,4 +1,4 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const generateToken = (user_info, callback) => {
     let secret = process.env.SECRET;
