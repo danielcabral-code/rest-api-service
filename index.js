@@ -7,6 +7,9 @@ const utilities = require('./utilities/utilities')
 const users = require('./routes/route_users')
 const exercises = require('./routes/route_exercises')
 const defaultPlans = require('./routes/route_defaultPlans')
+const suggestedPlans = require('./routes/route_suggestedPlans')
+const userPlans = require('./routes/route_userPlans')
+
 
  const auth = function(req, res, next) {
     let exceptions = ['/login', '/register']; 
@@ -28,6 +31,8 @@ app.use(auth);
 app.use('/', users)
 app.use('/exercises', exercises)
 app.use('/default_plans', defaultPlans)
+app.use('/suggested_plans', suggestedPlans)
+app.use('/user_plans', userPlans)
 
 
 mongoose.connect('mongodb+srv://dtamg2:projetointercalar@projeto.xjdac.mongodb.net/projeto?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
