@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const defaultPlanSchema = new mongoose.Schema({
   id: String,
-  max_age: Number,
+  maxAge: Number,
   exercise_id:[String]
 });
 

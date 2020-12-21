@@ -6,6 +6,7 @@ const port = 3000;
 const utilities = require('./utilities/utilities')
 const users = require('./routes/route_users')
 const exercises = require('./routes/route_exercises')
+const defaultPlans = require('./routes/route_defaultPlans')
 
  const auth = function(req, res, next) {
     let exceptions = ['/login', '/register']; 
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(auth);  
 app.use('/', users)
 app.use('/exercises', exercises)
+app.use('/default_plans', defaultPlans)
 
 
 mongoose.connect('mongodb+srv://dtamg2:projetointercalar@projeto.xjdac.mongodb.net/projeto?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
