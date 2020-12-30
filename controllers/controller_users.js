@@ -41,7 +41,10 @@ const login = (req, res) => {
             bcrypt.compare(req.body.password, user[0].password).then(function(result) {
                 if(result) {
                     utilities.generateToken({email:req.body.email,id:user[0]._id, name:user[0].name}, (token) => {
-                        res.status(200).send("Auth")
+                        res.status(200).send({
+                            message: "Auth",
+                            token:token
+                        })
                     })
                 } else {
                     res.status(401).send("Not Authorized"); 
