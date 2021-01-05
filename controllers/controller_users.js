@@ -59,5 +59,25 @@ const login = (req, res) => {
     })
 } 
 
+const getAllUsers = (req, res) => {
+
+    user.find({}, function (err, users) {
+        if (err) {
+            res.status(400).send(err); 
+        }
+
+        if(users.length > 0) {
+
+           res.status(200).send(users)
+
+           
+        } else {
+            res.status(401).send("Not Authorized"); 
+        }
+       
+    })
+}
+
 exports.login = login; 
 exports.register = register; 
+exports.getAllUsers=getAllUsers

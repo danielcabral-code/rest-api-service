@@ -24,6 +24,11 @@ router.post('/register', [
         res.status(404).json({errors: errors.array()})
     }
 })
+
+router.get('/users', function (req,res) {
+    controller.getAllUsers(req,res);
+    
+})
  
 
 module.exports = router
