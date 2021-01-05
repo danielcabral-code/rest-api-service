@@ -25,8 +25,8 @@ router.post('/register', [
     }
 })
 
-router.get('/users', function (req,res) {
-    controller.getAllUsers(req,res);
+router.post('/users', function (req,res) {
+    controller.checkEmail(req,res);
     
 })
  
