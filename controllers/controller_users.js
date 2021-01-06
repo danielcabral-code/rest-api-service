@@ -61,7 +61,7 @@ const login = (req, res) => {
 
 const checkEmail = (req, res) => {
 
-    user.find({email: req.body.email }, function (err, user) {
+    user.find({ email: req.body.email }, function (err, user) {
         if (err) {
             res.status(400).send(err);
         }
@@ -70,13 +70,33 @@ const checkEmail = (req, res) => {
             res.status(406).send("This email is already in use");
 
         }
-        else{res.status(200).send("Available email for use")}
+        else { res.status(200).send("Available email for use") }
     })
 
 
 }
 
+const resetPassword = (req, res) => {
+
+    bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(req.body.password, salt, function (err, hash) {
+            let new_password = {
+                password:hash
+            };
+            user.updateOne({email: req.params.email},new_password, function (err, user) {
+                if (err) {
+                    res.status(400).send(err);
+                }
+                res.status(200).json(user);
+            })
+        });
+    })
+   
+}
+
+
 
 exports.login = login;
 exports.register = register;
 exports.checkEmail = checkEmail
+exports.resetPassword = resetPassword
