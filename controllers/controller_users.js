@@ -70,6 +70,7 @@ const checkEmail = (req, res) => {
             res.status(406).send("This email is already in use");
 
         }
+        else{res.status(200).send("Available email for use")}
     })
 
 
