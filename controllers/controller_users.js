@@ -40,7 +40,7 @@ const login = (req, res) => {
 
             bcrypt.compare(req.body.password, user[0].password).then(function (result) {
                 if (result) {
-                    utilities.generateToken({ email: req.body.email, id: user[0]._id, name: user[0].name, birth: user[0].birth }, (token) => {
+                    utilities.generateToken({ email: req.body.email, id: user[0]._id, name: user[0].name, birth: user[0].birth, photoUrl:user[0].photoUrl }, (token) => {
                         res.status(200).send({
                             message: "Auth",
                             token: token
