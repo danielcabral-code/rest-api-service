@@ -7,12 +7,23 @@ router.get('/',  function (req, res) {
     controller.list(res); 
 })
 
-router.get('/:category', [
+router.get('/category/:category', [
     param('category').notEmpty().escape(), 
 ],  function (req, res) {
     const errors = validationResult(req); 
     if (errors.isEmpty()) {
         controller.getExerciseByCategory(req, res); 
+    } else {
+        res.status(404).json({errors: errors.array()})
+    }
+})
+
+router.get('/:_id', [
+    param('_id').notEmpty().escape(), 
+],  function (req, res) {
+    const errors = validationResult(req); 
+    if (errors.isEmpty()) {
+        controller.getExerciseById(req, res); 
     } else {
         res.status(404).json({errors: errors.array()})
     }

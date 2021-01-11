@@ -30,7 +30,17 @@ const getExerciseByCategory = (req, res) => {
     })
 }
 
+const getExerciseById = (req, res) => {
+    exercise.findOne({_id: req.params._id}, function (err, exercises) {
+        if (err) {
+            res.status(400).send(err); 
+        }
+        res.status(200).json(exercises); 
+    })
+}
+
 
 exports.create=create;
 exports.list = list;
 exports.getExerciseByCategory = getExerciseByCategory
+exports.getExerciseById= getExerciseById
