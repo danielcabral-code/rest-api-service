@@ -13,7 +13,7 @@ const userPlans = require('./routes/route_userPlans')
 
  const auth = function(req, res, next) {
     let exceptions = ['/login', '/register','/users']; 
-    if(exceptions.indexOf(req.url) >= 0) {
+    if(exceptions.indexOf(req.url) >= 0 || req.url.indexOf('recoverpassword')>=0) {
         next(); 
     } else {
         utilities.validateToken(req.headers.authorization, (result) => {

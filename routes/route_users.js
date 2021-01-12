@@ -29,7 +29,7 @@ router.post('/users', function (req,res) {
     controller.checkEmail(req,res);
     
 })
-router.put('/:email', [
+router.put('/recoverpassword/:email', [
     param('email').notEmpty().escape(), 
 ],  function (req, res) {
     const errors = validationResult(req); 
