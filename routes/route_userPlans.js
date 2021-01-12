@@ -28,6 +28,18 @@ router.get('/:user_id', [
     }
 })
 
+router.get('/plan/:_id', [
+    param('_id').notEmpty().escape(), 
+],  function (req, res) {
+    const errors = validationResult(req); 
+    if (errors.isEmpty()) {
+        controller.getPlanById(req, res); 
+    } else {
+        res.status(404).json({errors: errors.array()})
+    }
+})
+
+
 router.delete('/:_id', [
     param('_id').notEmpty().escape(), 
 ],  function (req, res) {
