@@ -44,6 +44,7 @@ const deletePlanByID = (req, res) => {
 
 const updatePlan = (req, res) => {
   let plan_update = {
+    plan_name:req.body.plan_name,
     exercises: req.body.exercises,
   };
 
