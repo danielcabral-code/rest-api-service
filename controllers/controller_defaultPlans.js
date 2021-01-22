@@ -2,7 +2,7 @@ const defaultPlan = require("../models/model_defaultPlans")
 
 const create = (req, res) => {
 
-    const defaultPlanToCreate = new defaultPlan({ maxAge: req.body.maxAge,exercise_id:req.body.exercise_id});
+    const defaultPlanToCreate = new defaultPlan({ maxAge: req.body.maxAge,exercises:req.body.exercises});
 
     defaultPlanToCreate.save(function (err, newDefaultPlan) {
         if (err) {

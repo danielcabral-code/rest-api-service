@@ -5,7 +5,7 @@ const { validationResult, body,param } = require('express-validator')
 
 router.post('/', [
     body('maxAge').isNumeric().notEmpty().escape(), 
-    body('exercise_id').notEmpty().isArray() 
+    body('exercises').notEmpty().isArray() 
 ],  function (req, res) {
     const errors = validationResult(req); 
     if (errors.isEmpty()) {
