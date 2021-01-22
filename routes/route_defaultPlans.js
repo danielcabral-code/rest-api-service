@@ -15,7 +15,7 @@ router.post('/', [
     }
 })
 
-router.get('/:maxAge', [
+router.get('/getdefault/:maxAge', [
     param('maxAge').notEmpty().escape(), 
 ],  function (req, res) {
     const errors = validationResult(req); 
