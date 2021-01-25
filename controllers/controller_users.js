@@ -40,7 +40,7 @@ const login = (req, res) => {
 
             bcrypt.compare(req.body.password, user[0].password).then(function (result) {
                 if (result) {
-                    utilities.generateToken({ email: req.body.email, id: user[0]._id, name: user[0].name, birth: user[0].birth, photoUrl:user[0].photoUrl }, (token) => {
+                    utilities.generateToken({ email: req.body.email, id: user[0]._id, name: user[0].name, birth: user[0].birth, photoUrl: user[0].photoUrl }, (token) => {
                         res.status(200).send({
                             message: "Auth",
                             token: token
@@ -81,9 +81,9 @@ const resetPassword = (req, res) => {
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
             let new_password = {
-                password:hash
+                password: hash
             };
-            user.updateOne({email: req.params.email},new_password, function (err, user) {
+            user.updateOne({ email: req.params.email }, new_password, function (err, user) {
                 if (err) {
                     res.status(400).send(err);
                 }
@@ -91,8 +91,18 @@ const resetPassword = (req, res) => {
             })
         });
     })
-   
+
 }
+
+const getUserById = (req, res) => {
+    user.find({ _id: req.params._id }, function (err, user) {
+        if (err) {
+            res.status(400).send(err);
+        }
+        res.status(200).json(user);
+    })
+}
+
 
 
 
@@ -100,3 +110,4 @@ exports.login = login;
 exports.register = register;
 exports.checkEmail = checkEmail
 exports.resetPassword = resetPassword
+exports.getUserById = getUserById
