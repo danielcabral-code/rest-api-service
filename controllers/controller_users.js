@@ -103,6 +103,26 @@ const getUserById = (req, res) => {
     })
 }
 
+const updateDetails = (req, res) => {
+
+    let details_update = {
+        weight: req.body.weight,
+        height: req.body.height,
+    };
+
+    user.updateOne(
+        { _id: req.params._id },
+        details_update,
+        function (err, user) {
+            if (err) {
+                res.status(400).send(err);
+            }
+            res.status(200).json(user);
+        }
+    );
+
+}
+
 
 
 
@@ -111,3 +131,4 @@ exports.register = register;
 exports.checkEmail = checkEmail
 exports.resetPassword = resetPassword
 exports.getUserById = getUserById
+exports.updateDetails = updateDetails

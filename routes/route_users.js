@@ -51,6 +51,17 @@ router.get('/getuser/:_id', [
     }
 })
 
+router.put('/update/:_id', [
+    param('_id').notEmpty().escape(), 
+],  function (req, res) {
+    const errors = validationResult(req); 
+    if (errors.isEmpty()) {
+        controller.updateDetails(req, res); 
+    } else {
+        res.status(404).json({errors: errors.array()})
+    }
+})
+
  
 
 module.exports = router
