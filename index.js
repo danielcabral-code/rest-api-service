@@ -9,6 +9,9 @@ const exercises = require('./routes/route_exercises')
 const defaultPlans = require('./routes/route_defaultPlans')
 const suggestedPlans = require('./routes/route_suggestedPlans')
 const userPlans = require('./routes/route_userPlans')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
  const auth = function(req, res, next) {
@@ -37,6 +40,7 @@ app.use('/exercises', exercises)
 app.use('/default_plans', defaultPlans)
 app.use('/suggested_plans', suggestedPlans)
 app.use('/user_plans', userPlans)
+
 
 
 mongoose.connect('mongodb+srv://dtamg2:projetointercalar@projeto.xjdac.mongodb.net/projeto?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});

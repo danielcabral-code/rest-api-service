@@ -62,6 +62,17 @@ router.put('/update/:_id', [
     }
 })
 
+router.put('/updatephoto/:_id', [
+    param('_id').notEmpty().escape(), 
+],  function (req, res) {
+    const errors = validationResult(req); 
+    if (errors.isEmpty()) {
+        controller.updatePhoto(req, res); 
+    } else {
+        res.status(404).json({errors: errors.array()})
+    }
+})
+
  
 
 module.exports = router

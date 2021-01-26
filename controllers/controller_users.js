@@ -123,6 +123,26 @@ const updateDetails = (req, res) => {
 
 }
 
+const updatePhoto = (req, res) => {
+
+    let photo_update = {
+        photoUrl:req.body.photoUrl
+       
+    };
+
+    user.updateOne(
+        { _id: req.params._id },
+        photo_update,
+        function (err, user) {
+            if (err) {
+                res.status(400).send(err);
+            }
+            res.status(200).json(user);
+        }
+    );
+
+}
+
 
 
 
@@ -132,3 +152,4 @@ exports.checkEmail = checkEmail
 exports.resetPassword = resetPassword
 exports.getUserById = getUserById
 exports.updateDetails = updateDetails
+exports.updatePhoto = updatePhoto
