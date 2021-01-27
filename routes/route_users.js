@@ -73,10 +73,5 @@ router.put('/updatephoto/:_id', [
     }
 })
 
-router.post('/savephoto',  function (req, res) {
-    controller.savePhoto(req, res); 
-})
-
  
-
 module.exports = router
