@@ -143,6 +143,29 @@ const updatePhoto = (req, res) => {
 
 }
 
+const savePhoto = (req, res) => {
+
+    user.find({ email: req.body.email }, function (err, user) {
+        if (err) {
+            res.status(400).send(err);
+        }
+
+        if (user.length > 0) {
+              
+                    utilities.generateToken({ email: req.body.email, id: user[0]._id, name: user[0].name, birth: user[0].birth, photoUrl: user[0].photoUrl }, (token) => {
+                        res.status(200).send({
+                            message: "Photo updated and saved",
+                            token: token
+                        })
+                    })
+                 
+
+        } else {
+            res.status(401).send("Not Authorized");
+        }
+
+    })
+}
 
 
 
@@ -153,3 +176,4 @@ exports.resetPassword = resetPassword
 exports.getUserById = getUserById
 exports.updateDetails = updateDetails
 exports.updatePhoto = updatePhoto
+exports.savePhoto = savePhoto
