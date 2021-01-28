@@ -126,8 +126,8 @@ const updateDetails = (req, res) => {
 const updatePhoto = (req, res) => {
 
     let photo_update = {
-        photoUrl:req.body.photoUrl
-       
+        photoUrl: req.body.photoUrl
+
     };
 
     user.updateOne(

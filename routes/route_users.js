@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router();
 const controller = require('../controllers/controller_users')
-const { validationResult, body,param } = require('express-validator')
+const { validationResult, body, param } = require('express-validator')
 
-router.post('/login',  function (req, res) {
-    controller.login(req, res); 
+router.post('/login', function (req, res) {
+    controller.login(req, res);
 })
 
 router.post('/register', [
@@ -16,62 +16,62 @@ router.post('/register', [
     body('weight').notEmpty().escape().isNumeric(),
     body('photoUrl').notEmpty()
 
-],  function (req, res) {
-    const errors = validationResult(req); 
+], function (req, res) {
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.register(req, res); 
+        controller.register(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({ errors: errors.array() })
     }
 })
 
-router.post('/users', function (req,res) {
-    controller.checkEmail(req,res);
-    
+router.post('/users', function (req, res) {
+    controller.checkEmail(req, res);
+
 })
 router.put('/recoverpassword/:email', [
-    param('email').notEmpty().escape(), 
-],  function (req, res) {
-    const errors = validationResult(req); 
+    param('email').notEmpty().escape(),
+], function (req, res) {
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.resetPassword(req, res); 
+        controller.resetPassword(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({ errors: errors.array() })
     }
 })
 
 router.get('/getuser/:_id', [
-    param('_id').notEmpty().escape(), 
-],  function (req, res) {
-    const errors = validationResult(req); 
+    param('_id').notEmpty().escape(),
+], function (req, res) {
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.getUserById(req, res); 
+        controller.getUserById(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({ errors: errors.array() })
     }
 })
 
 router.put('/update/:_id', [
-    param('_id').notEmpty().escape(), 
-],  function (req, res) {
-    const errors = validationResult(req); 
+    param('_id').notEmpty().escape(),
+], function (req, res) {
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.updateDetails(req, res); 
+        controller.updateDetails(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({ errors: errors.array() })
     }
 })
 
 router.put('/updatephoto/:_id', [
-    param('_id').notEmpty().escape(), 
-],  function (req, res) {
-    const errors = validationResult(req); 
+    param('_id').notEmpty().escape(),
+], function (req, res) {
+    const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.updatePhoto(req, res); 
+        controller.updatePhoto(req, res);
     } else {
-        res.status(404).json({errors: errors.array()})
+        res.status(404).json({ errors: errors.array() })
     }
 })
 
- 
+
 module.exports = router

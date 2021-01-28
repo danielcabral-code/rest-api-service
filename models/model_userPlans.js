@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const planSchema = new mongoose.Schema({
   id: String,
   plan_name: String,
-  user_id:String,
-  exercises:[{exercise_id: String, exercise_duration: Number}]
+  user_id: String,
+  exercises: [{ exercise_id: String, exercise_duration: Number }]
 
 });
 

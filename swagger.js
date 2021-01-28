@@ -17,11 +17,11 @@ module.exports = {
     },
     "swagger": "2.0",
     "paths": {
-        "/getuser/:_id": {
+        "/getuser/{_id}": {
             "get": {
                 "parameters": [{
                     "name": "_id",
-                    "in": "params",
+                    "in": "path",
                     "description": null,
                     "required": true,
                     "type": "string"
@@ -32,11 +32,9 @@ module.exports = {
                     "200": {
                         "description": "Existent user returned",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/users"
-                            }
-                        }
+                            "$ref": "#components/schemas/users"
+                        },
+
                     },
                     "400": {
                         "description": "Unexpected error"
@@ -205,11 +203,11 @@ module.exports = {
                 }]
             }
         },
-        "/update/:_id": {
+        "/update/{_id}": {
             "post": {
                 "parameters": [{
                     "name": "_id",
-                    "in": "params",
+                    "in": "path",
                     "description": null,
                     "required": true,
                     "type": "string",
@@ -314,11 +312,11 @@ module.exports = {
             }
         },
 
-        "/exercises/category/:category": {
+        "/exercises/category/{category}": {
             "get": {
                 "parameters": [{
                     "name": "category",
-                    "in": "params",
+                    "in": "path",
                     "description": null,
                     "required": true,
                     "type": "string",
@@ -340,11 +338,11 @@ module.exports = {
             }
         },
 
-        "/exercises/:_id": {
+        "/exercises/{_id}": {
             "get": {
                 "parameters": [{
                     "name": "_id",
-                    "in": "params",
+                    "in": "path",
                     "description": null,
                     "required": true,
                     "type": "string",
@@ -366,30 +364,157 @@ module.exports = {
             }
         },
 
-        "/sql/students/:id": {
-            "get": {
+        "/exercises": {
+            "post": {
                 "parameters": [{
-                    "name": "id",
-                    "in": "params",
+                    "name": "exerciseName",
+                    "in": "body",
                     "description": null,
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                },
+                {
+                    "name": "category",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+
+
+                },
+                {
+                    "name": "videoUrl",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+                },
+                {
+                    "name": "duration",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "type": "number",
                 }],
-                "description": "",
-                "tags": ["SQL | Students"],
+                "description": "Create exercises",
+                "tags": ["Exercises"],
                 "responses": {
                     "200": {
-                        "description": "Student found",
-                        "schema": {
-                            "$ref": "#/definitions/StudentsMONGO"
-                        }
+                        "description": "Exercise created"
                     },
                     "400": {
                         "description": "Unexpected error"
                     },
-                    "404": {
-                        "description": "Student not found!"
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            },
+            "get": {
+                "description": "Get all exercises",
+                "tags": ["Exercises"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+
+        "/exercises/category/{category}": {
+            "get": {
+                "parameters": [{
+                    "name": "category",
+                    "in": "path",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+                }],
+                "description": "Get exercises by category",
+                "tags": ["Exercises"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+
+        "/user_plans": {
+            "post": {
+                "parameters": [{
+                    "name": "plan_name",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+                },
+                {
+                    "name": "user_id",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+                },
+                {
+                    "name": "exercises",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/ArrayOfExercises"
                     }
+                }],
+                "description": "Create new user plan",
+                "tags": ["User Plans"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/user_plans/{_id}": {
+            "get": {
+                "parameters": [{
+                    "name": "_id",
+                    "in": "path",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+                }],
+                "description": "Get plans by user id",
+                "tags": ["User Plans"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
                 },
                 "security": [{
                     "JWT": []
@@ -398,23 +523,21 @@ module.exports = {
             "delete": {
                 "parameters": [{
                     "name": "id",
-                    "in": "params",
+                    "in": "path",
                     "description": null,
                     "required": true,
                     "type": "string"
                 }],
-                "description": "",
-                "tags": ["SQL | Students"],
+                "description": " Delete plan",
+                "tags": ["User Plans"],
                 "responses": {
                     "200": {
-                        "description": "Student deleted!"
+                        "description": "Plan deleted!"
                     },
                     "400": {
                         "description": "Unexpected error"
                     },
-                    "404": {
-                        "description": "Student not found!"
-                    }
+
                 },
                 "security": [{
                     "JWT": []
@@ -423,74 +546,133 @@ module.exports = {
             "put": {
                 "parameters": [{
                     "name": "id",
-                    "in": "params",
+                    "in": "path",
                     "description": null,
                     "required": true,
                     "type": "string"
-                }, {
-                    "name": "name",
-                    "in": "body",
-                    "description": null,
-                    "required": true,
-                    "type": "string"
-                }, {
-                    "name": "email",
+                },
+                {
+                    "name": "plan_name",
                     "in": "body",
                     "description": null,
                     "required": true,
                     "type": "string"
-                }, {
-                    "name": "password",
+                },
+                {
+                    "name": "exercises",
                     "in": "body",
                     "description": null,
                     "required": true,
-                    "type": "string"
-                }, {
-                    "name": "regime",
-                    "in": "body",
-                    "description": null,
-                    "required": false
-                }, {
-                    "name": "number",
-                    "in": "body",
-                    "description": null,
-                    "required": false,
-                    "type": "number"
-                }, {
-                    "name": "register_date",
-                    "in": "body",
-                    "description": null,
-                    "required": false,
-                    "type": "Date"
-                }, {
-                    "name": "favorite_color",
-                    "in": "body",
-                    "description": null,
-                    "required": false,
-                    "type": "string"
+                    "schema": {
+                        "$ref": "#/definitions/ArrayOfExercises"
+                    }
                 }],
-                "description": "",
-                "tags": ["SQL | Students"],
+                "description": "Update user plan",
+                "tags": ["User Plans"],
                 "responses": {
                     "200": {
-                        "description": "Student updated"
+                        "description": "Plan deleted!"
                     },
                     "400": {
                         "description": "Unexpected error"
                     },
-                    "404": {
-                        "description": "Student not found!"
-                    }
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            },
+        },
+        "/user_plans/plan/{_id}": {
+            "get": {
+                "parameters": [{
+                    "name": "_id",
+                    "in": "path",
+                    "description": null,
+                    "required": true,
+                    "type": "string",
+                }],
+                "description": "Get plans by id",
+                "tags": ["User Plans"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
-        }
+        },
+
+        "/default_plans": {
+            "post": {
+                "parameters": [{
+                    "name": "maxAge",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "type": "number",
+                },
+                {
+                    "name": "exercises",
+                    "in": "body",
+                    "description": null,
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/ArrayOfExercisesDefaultPlan"
+                    }
+                }],
+                "description": "Create default plans",
+                "tags": ["Default Plans"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/default_plans/getdefault/{maxAge}": {
+            "get": {
+                "parameters": [{
+                    "name": "maxAge",
+                    "in": "path",
+                    "description": null,
+                    "required": true,
+                    "type": "number",
+                }],
+                "description": "Get default plans by max age (30 , 40, 50 ,60)",
+                "tags": ["Default Plans"],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Unexpected error"
+                    },
+
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+
+
     },
     "definitions": {
-        "users": {
-            "required": ["name", "email"],
+        "Users": {
             "properties": {
                 "_id": {
                     "type": "string",
@@ -533,60 +715,70 @@ module.exports = {
                     "example": "https://firebasestorage.googleapis.com/v0/b/startdoing-bd1bc.appspot.com/o/person.jpg?alt=media&token=d201079f-9035-4f11-9421-58d1e9293359"
                 }
             },
-            "allOf": [{
-                "$ref": "#/definitions/Object"
-            }]
+
         },
-        "StudentsSQL": {
-            "required": ["name", "email"],
+        "Exercises": {
             "properties": {
-                "id": {
+                "_id": {
                     "type": "string",
-                    "description": "id ",
-                    "example": "1"
+                    "description": "_id ",
+                    "example": "5fa1e02bb50c63049c5f0a1a"
                 },
-                "name": {
+                "category": {
                     "type": "string",
-                    "description": "name ",
-                    "example": "John"
+                    "description": "category ",
+                    "example": "CHEST"
                 },
-                "email": {
+                "videoUrl": {
                     "type": "string",
-                    "description": "email ",
-                    "example": "4010123@esmad.ipp.pt"
+                    "description": "videoUrl ",
+                    "example": "https://firebasestorage.googleapis.com/v0/b/startdoing-bd1bc.appspot.com/o/CHEST%20-%20INCLINE%20PUSH%20UP%20-%20ov40.png?alt=media&token=bbb87509-4dd5-4bfe-b687-45751ee393af"
                 },
-                "password": {
-                    "type": "string",
-                    "description": "password ",
-                    "example": "123sdhb45a6asd78"
-                },
-                "favorite_color": {
-                    "type": "string",
-                    "description": "favorite_color ",
-                    "example": "#ffffff"
-                },
-                "number": {
+                "duration": {
                     "type": "number",
-                    "description": "number ",
-                    "example": "4010123"
+                    "description": "duration ",
+                    "example": "40"
                 },
-                "createdAt": {
-                    "type": "Date",
-                    "description": "createdAt ",
-                    "example": "2020-01-01"
-                },
-                "updatedAt": {
-                    "type": "Date",
-                    "description": "updatedAt ",
-                    "example": "2020-01-01"
-                },
-                "regime": {
-                    "type": "string",
-                    "description": "regime ",
-                    "enum": ["PL", "DR"]
+
+            },
+
+        },
+        "ArrayOfExercises": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "exercise_id",
+                    "exercise_duration"
+                ],
+                "properties": {
+                    "exercise_id": {
+                        "type": "string"
+                    },
+                    "exercise_duration": {
+                        "type": "number"
+                    }
                 }
             }
-        }
+        },
+
+        "ArrayOfExercisesDefaultPlan": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "exercise_id",
+
+                ],
+                "properties": {
+                    "exercise_id": {
+                        "type": "string"
+                    },
+
+                }
+            }
+        },
+
     },
     "responses": {},
     "parameters": {},
@@ -600,7 +792,11 @@ module.exports = {
         "description": ""
     },
     {
-        "name": "SQL | Students",
+        "name": "User Plans",
+        "description": ""
+    },
+    {
+        "name": "Default Plans",
         "description": ""
     }]
 
