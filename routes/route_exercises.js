@@ -1,45 +1,49 @@
-const express = require('express')
-const router = express.Router()
-const controller = require('../controllers/controller_exercises')
-const { validationResult, body, param } = require('express-validator')
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/controller_exercises");
+const { validationResult, body, param } = require("express-validator");
 
-router.get('/', function (req, res) {
-    controller.list(res);
-})
+router.get("/", function (req, res) {
+  controller.list(res);
+});
 
-router.get('/category/:category', [
-    param('category').notEmpty().escape(),
-], function (req, res) {
+router.get(
+  "/category/:category",
+  [param("category").notEmpty().escape()],
+  function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.getExerciseByCategory(req, res);
+      controller.getExerciseByCategory(req, res);
     } else {
-        res.status(404).json({ errors: errors.array() })
+      res.status(404).json({ errors: errors.array() });
     }
-})
+  }
+);
 
-router.get('/:_id', [
-    param('_id').notEmpty().escape(),
-], function (req, res) {
+router.get("/:_id", [param("_id").notEmpty().escape()], function (req, res) {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    controller.getExerciseById(req, res);
+  } else {
+    res.status(404).json({ errors: errors.array() });
+  }
+});
+
+router.post(
+  "/",
+  [
+    body("exerciseName").notEmpty().escape(),
+    body("category").notEmpty().escape(),
+    body("videoUrl").notEmpty().escape(),
+    body("duration").isNumeric(),
+  ],
+  function (req, res) {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
-        controller.getExerciseById(req, res);
+      controller.create(req, res);
     } else {
-        res.status(404).json({ errors: errors.array() })
+      res.status(404).json({ errors: errors.array() });
     }
-})
-
-router.post('/', [
-    body('exerciseName').notEmpty().escape(),
-    body('category').notEmpty().escape(),
-    body('videoUrl').notEmpty().escape(),
-    body('duration').isNumeric()
-], function (req, res) {
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-        controller.create(req, res);
-    } else {
-        res.status(404).json({ errors: errors.array() })
-    }
-})
+  }
+);
 module.exports = router;

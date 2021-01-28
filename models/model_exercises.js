@@ -5,7 +5,7 @@ const exercisesSchema = new mongoose.Schema({
   exerciseName: String,
   category: String,
   videoUrl: String,
-  duration: Number
+  duration: Number,
 });
 
 const exercises = mongoose.model("tbl_exercises", exercisesSchema);

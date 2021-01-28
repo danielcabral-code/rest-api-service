@@ -34,7 +34,6 @@ module.exports = {
                         "schema": {
                             "$ref": "#components/schemas/users"
                         },
-
                     },
                     "400": {
                         "description": "Unexpected error"
@@ -82,7 +81,6 @@ module.exports = {
                     "JWT": []
                 }]
             },
-
         },
         "/register": {
             "post": {
@@ -155,7 +153,6 @@ module.exports = {
                     "description": null,
                     "required": true,
                     "type": "string"
-
                 }],
                 "description": "Check if email is already in use",
                 "tags": ["Users"],
@@ -183,7 +180,6 @@ module.exports = {
                     "description": null,
                     "required": true,
                     "type": "string"
-
                 }],
                 "description": "Reset user password",
                 "tags": ["Users"],
@@ -218,8 +214,6 @@ module.exports = {
                     "description": null,
                     "required": true,
                     "type": "number",
-
-
                 },
                 {
                     "name": "height",
@@ -246,7 +240,6 @@ module.exports = {
                 }]
             }
         },
-
         "/exercises": {
             "post": {
                 "parameters": [{
@@ -262,8 +255,6 @@ module.exports = {
                     "description": null,
                     "required": true,
                     "type": "string",
-
-
                 },
                 {
                     "name": "videoUrl",
@@ -288,7 +279,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -304,14 +294,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
         "/exercises/category/{category}": {
             "get": {
                 "parameters": [{
@@ -330,14 +318,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
         "/exercises/{_id}": {
             "get": {
                 "parameters": [{
@@ -356,14 +342,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
         "/exercises": {
             "post": {
                 "parameters": [{
@@ -379,8 +363,6 @@ module.exports = {
                     "description": null,
                     "required": true,
                     "type": "string",
-
-
                 },
                 {
                     "name": "videoUrl",
@@ -405,7 +387,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -421,14 +402,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
         "/exercises/category/{category}": {
             "get": {
                 "parameters": [{
@@ -447,14 +426,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
         "/user_plans": {
             "post": {
                 "parameters": [{
@@ -489,7 +466,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -514,7 +490,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -537,7 +512,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -576,7 +550,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -601,14 +574,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
         "/default_plans": {
             "post": {
                 "parameters": [{
@@ -636,7 +607,6 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
@@ -661,15 +631,12 @@ module.exports = {
                     "400": {
                         "description": "Unexpected error"
                     },
-
                 },
                 "security": [{
                     "JWT": []
                 }]
             }
         },
-
-
     },
     "definitions": {
         "Users": {
@@ -715,7 +682,6 @@ module.exports = {
                     "example": "https://firebasestorage.googleapis.com/v0/b/startdoing-bd1bc.appspot.com/o/person.jpg?alt=media&token=d201079f-9035-4f11-9421-58d1e9293359"
                 }
             },
-
         },
         "Exercises": {
             "properties": {
@@ -739,9 +705,7 @@ module.exports = {
                     "description": "duration ",
                     "example": "40"
                 },
-
             },
-
         },
         "ArrayOfExercises": {
             "type": "array",
@@ -761,24 +725,20 @@ module.exports = {
                 }
             }
         },
-
         "ArrayOfExercisesDefaultPlan": {
             "type": "array",
             "items": {
                 "type": "object",
                 "required": [
                     "exercise_id",
-
                 ],
                 "properties": {
                     "exercise_id": {
                         "type": "string"
                     },
-
                 }
             }
         },
-
     },
     "responses": {},
     "parameters": {},
@@ -786,7 +746,6 @@ module.exports = {
         "name": "Users",
         "description": ""
     },
-
     {
         "name": "Exercises",
         "description": ""
@@ -799,8 +758,4 @@ module.exports = {
         "name": "Default Plans",
         "description": ""
     }]
-
-
-
-
 }
