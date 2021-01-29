@@ -4,7 +4,7 @@ module.exports = {
         "title": "StartDoing API",
         "version": "1.0.0"
     },
-    "host": "localhost:3000",
+    "host": "http://www.startdoing.com",
     "basePath": "/",
     "produces": ["application/json"],
     "schemes": ["http"],
