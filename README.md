@@ -1,1 +1,1 @@
-REST API Service for StartDoing Project using Node.js.
+REST API Service w/ Node.js.
